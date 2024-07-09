@@ -104,7 +104,10 @@ func (g *GcpVerifier) createComputeServiceInstance(input createComputeServiceIns
 		},
 		Metadata: &computev1.Metadata{
 			Items: []*computev1.MetadataItems{
-
+				{
+					Key:   "serial-port-enable",
+					Value: &input.serialportenable,
+				},
 				{
 					Key:   "serial-port-enable",
 					Value: &input.serialportenable,
