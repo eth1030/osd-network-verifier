@@ -44,6 +44,14 @@ func (g *GcpVerifier) ValidateEgress(vei verifier.ValidateEgressInput) *output.O
 	// if err != nil {
 	// 	return a.Output.AddError(err)
 	// }
+	// Fetch the egress URL list as two strings (one for normal URLs, the other
+	// for TLS disabled URLs); note that this is TOTALLY IGNORED by LegacyProbe,
+	// as that probe only knows how to use the egress URL lists baked into its
+	// AMIs/container images
+	// egressListStr, tlsDisabledEgressListStr, err := egress_lists.GetEgressListAsString(vei.PlatformType, a.AwsClient.Region)
+	// if err != nil {
+	// 	return a.Output.AddError(err)
+	// }
 	userDataVariables := map[string]string{
 		"AWS_REGION":  "us-east-2", // Not sure if this is the correct data
 		"TIMEOUT":     vei.Timeout.String(),
