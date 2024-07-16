@@ -27,6 +27,15 @@ func NewClient(credentials *google.Credentials) (*Client, error) {
 	return &Client{computeService: computeService}, nil
 }
 
+type GCPClient interface {
+	CreateInstance(projectID, zone string, instance *computev1.Instance) error
+	GetInstance(projectID, zone, instanceName string) (computev1.Instance, error)
+	GetInstancePorts(projectID, zone, instanceName string) (*computev1.SerialPortOutput, error)
+	ListMachineTypes(projectID, zone string) (map[string]bool, error)
+	SetInstanceLabels(projectID, zone, instanceName string, labelReq *computev1.InstancesSetLabelsRequest) error
+	TerminateComputeServiceInstance(projectID, zone, instanceName string) error
+}
+
 // terminateComputeServiceInstance terminates target ComputeService instance
 // uses c.output to store result of the execution
 func (c *Client) TerminateComputeServiceInstance(projectID, zone, instanceName string) error {
