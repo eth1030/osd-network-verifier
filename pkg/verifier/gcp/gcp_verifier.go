@@ -109,10 +109,6 @@ func (g *GcpVerifier) createComputeServiceInstance(input createComputeServiceIns
 					Value: &input.serialportenable,
 				},
 				{
-					Key:   "serial-port-enable",
-					Value: &input.serialportenable,
-				},
-				{
 					Key:   "startup-script",
 					Value: &input.userdata,
 				},
