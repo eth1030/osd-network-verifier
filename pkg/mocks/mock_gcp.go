@@ -7,35 +7,36 @@ package mocks
 import (
 	reflect "reflect"
 
+	gcp "github.com/openshift/osd-network-verifier/pkg/clients/gcp"
 	gomock "go.uber.org/mock/gomock"
 	v1 "google.golang.org/api/compute/v1"
 )
 
-// MockGCPClient is a mock of GCPClient interface.
-type MockGCPClient struct {
+// MockGcpClient is a mock of GcpClient interface.
+type MockGcpClient struct {
 	ctrl     *gomock.Controller
-	recorder *MockGCPClientMockRecorder
+	recorder *MockGcpClientMockRecorder
 }
 
-// MockGCPClientMockRecorder is the mock recorder for MockGCPClient.
-type MockGCPClientMockRecorder struct {
-	mock *MockGCPClient
+// MockGcpClientMockRecorder is the mock recorder for MockGcpClient.
+type MockGcpClientMockRecorder struct {
+	mock *MockGcpClient
 }
 
-// NewMockGCPClient creates a new mock instance.
-func NewMockGCPClient(ctrl *gomock.Controller) *MockGCPClient {
-	mock := &MockGCPClient{ctrl: ctrl}
-	mock.recorder = &MockGCPClientMockRecorder{mock}
+// NewMockGcpClient creates a new mock instance.
+func NewMockGcpClient(ctrl *gomock.Controller) *MockGcpClient {
+	mock := &MockGcpClient{ctrl: ctrl}
+	mock.recorder = &MockGcpClientMockRecorder{mock}
 	return mock
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockGCPClient) EXPECT() *MockGCPClientMockRecorder {
+func (m *MockGcpClient) EXPECT() *MockGcpClientMockRecorder {
 	return m.recorder
 }
 
 // CreateInstance mocks base method.
-func (m *MockGCPClient) CreateInstance(projectID, zone string, instance *v1.Instance) error {
+func (m *MockGcpClient) CreateInstance(projectID, zone string, instance *v1.Instance) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateInstance", projectID, zone, instance)
 	ret0, _ := ret[0].(error)
@@ -43,13 +44,13 @@ func (m *MockGCPClient) CreateInstance(projectID, zone string, instance *v1.Inst
 }
 
 // CreateInstance indicates an expected call of CreateInstance.
-func (mr *MockGCPClientMockRecorder) CreateInstance(projectID, zone, instance interface{}) *gomock.Call {
+func (mr *MockGcpClientMockRecorder) CreateInstance(projectID, zone, instance interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateInstance", reflect.TypeOf((*MockGCPClient)(nil).CreateInstance), projectID, zone, instance)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateInstance", reflect.TypeOf((*MockGcpClient)(nil).CreateInstance), projectID, zone, instance)
 }
 
 // GetInstance mocks base method.
-func (m *MockGCPClient) GetInstance(projectID, zone, instanceName string) (v1.Instance, error) {
+func (m *MockGcpClient) GetInstance(projectID, zone, instanceName string) (v1.Instance, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetInstance", projectID, zone, instanceName)
 	ret0, _ := ret[0].(v1.Instance)
@@ -58,13 +59,13 @@ func (m *MockGCPClient) GetInstance(projectID, zone, instanceName string) (v1.In
 }
 
 // GetInstance indicates an expected call of GetInstance.
-func (mr *MockGCPClientMockRecorder) GetInstance(projectID, zone, instanceName interface{}) *gomock.Call {
+func (mr *MockGcpClientMockRecorder) GetInstance(projectID, zone, instanceName interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstance", reflect.TypeOf((*MockGCPClient)(nil).GetInstance), projectID, zone, instanceName)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstance", reflect.TypeOf((*MockGcpClient)(nil).GetInstance), projectID, zone, instanceName)
 }
 
 // GetInstancePorts mocks base method.
-func (m *MockGCPClient) GetInstancePorts(projectID, zone, instanceName string) (*v1.SerialPortOutput, error) {
+func (m *MockGcpClient) GetInstancePorts(projectID, zone, instanceName string) (*v1.SerialPortOutput, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetInstancePorts", projectID, zone, instanceName)
 	ret0, _ := ret[0].(*v1.SerialPortOutput)
@@ -73,13 +74,13 @@ func (m *MockGCPClient) GetInstancePorts(projectID, zone, instanceName string) (
 }
 
 // GetInstancePorts indicates an expected call of GetInstancePorts.
-func (mr *MockGCPClientMockRecorder) GetInstancePorts(projectID, zone, instanceName interface{}) *gomock.Call {
+func (mr *MockGcpClientMockRecorder) GetInstancePorts(projectID, zone, instanceName interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstancePorts", reflect.TypeOf((*MockGCPClient)(nil).GetInstancePorts), projectID, zone, instanceName)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstancePorts", reflect.TypeOf((*MockGcpClient)(nil).GetInstancePorts), projectID, zone, instanceName)
 }
 
 // ListMachineTypes mocks base method.
-func (m *MockGCPClient) ListMachineTypes(projectID, zone string) (map[string]bool, error) {
+func (m *MockGcpClient) ListMachineTypes(projectID, zone string) (map[string]bool, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListMachineTypes", projectID, zone)
 	ret0, _ := ret[0].(map[string]bool)
@@ -88,13 +89,25 @@ func (m *MockGCPClient) ListMachineTypes(projectID, zone string) (map[string]boo
 }
 
 // ListMachineTypes indicates an expected call of ListMachineTypes.
-func (mr *MockGCPClientMockRecorder) ListMachineTypes(projectID, zone interface{}) *gomock.Call {
+func (mr *MockGcpClientMockRecorder) ListMachineTypes(projectID, zone interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListMachineTypes", reflect.TypeOf((*MockGCPClient)(nil).ListMachineTypes), projectID, zone)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListMachineTypes", reflect.TypeOf((*MockGcpClient)(nil).ListMachineTypes), projectID, zone)
+}
+
+// SetClient mocks base method.
+func (m *MockGcpClient) SetClient(e gcp.GcpClient) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "SetClient", e)
+}
+
+// SetClient indicates an expected call of SetClient.
+func (mr *MockGcpClientMockRecorder) SetClient(e interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetClient", reflect.TypeOf((*MockGcpClient)(nil).SetClient), e)
 }
 
 // SetInstanceLabels mocks base method.
-func (m *MockGCPClient) SetInstanceLabels(projectID, zone, instanceName string, labelReq *v1.InstancesSetLabelsRequest) error {
+func (m *MockGcpClient) SetInstanceLabels(projectID, zone, instanceName string, labelReq *v1.InstancesSetLabelsRequest) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "SetInstanceLabels", projectID, zone, instanceName, labelReq)
 	ret0, _ := ret[0].(error)
@@ -102,13 +115,13 @@ func (m *MockGCPClient) SetInstanceLabels(projectID, zone, instanceName string, 
 }
 
 // SetInstanceLabels indicates an expected call of SetInstanceLabels.
-func (mr *MockGCPClientMockRecorder) SetInstanceLabels(projectID, zone, instanceName, labelReq interface{}) *gomock.Call {
+func (mr *MockGcpClientMockRecorder) SetInstanceLabels(projectID, zone, instanceName, labelReq interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetInstanceLabels", reflect.TypeOf((*MockGCPClient)(nil).SetInstanceLabels), projectID, zone, instanceName, labelReq)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetInstanceLabels", reflect.TypeOf((*MockGcpClient)(nil).SetInstanceLabels), projectID, zone, instanceName, labelReq)
 }
 
 // TerminateComputeServiceInstance mocks base method.
-func (m *MockGCPClient) TerminateComputeServiceInstance(projectID, zone, instanceName string) error {
+func (m *MockGcpClient) TerminateComputeServiceInstance(projectID, zone, instanceName string) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TerminateComputeServiceInstance", projectID, zone, instanceName)
 	ret0, _ := ret[0].(error)
@@ -116,7 +129,7 @@ func (m *MockGCPClient) TerminateComputeServiceInstance(projectID, zone, instanc
 }
 
 // TerminateComputeServiceInstance indicates an expected call of TerminateComputeServiceInstance.
-func (mr *MockGCPClientMockRecorder) TerminateComputeServiceInstance(projectID, zone, instanceName interface{}) *gomock.Call {
+func (mr *MockGcpClientMockRecorder) TerminateComputeServiceInstance(projectID, zone, instanceName interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TerminateComputeServiceInstance", reflect.TypeOf((*MockGCPClient)(nil).TerminateComputeServiceInstance), projectID, zone, instanceName)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TerminateComputeServiceInstance", reflect.TypeOf((*MockGcpClient)(nil).TerminateComputeServiceInstance), projectID, zone, instanceName)
 }

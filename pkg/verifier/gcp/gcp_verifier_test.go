@@ -17,8 +17,8 @@ func TestGcpVerifier_findUnreachableEndpoints(t *testing.T) {
 	// call finish at end to assert mock's expectations
 	defer mockCtrl.Finish()
 	// obtain mock gcp client
-	FakeGCPCli := mocks.NewMockGCPClient(mockCtrl)
-	// create fake output
+	FakeGCPCli := mocks.NewMockGcpClient(mockCtrl)
+	// create fake outputs
 	out := &computev1.SerialPortOutput{
 		Contents: "fake output",
 	}
@@ -30,9 +30,7 @@ func TestGcpVerifier_findUnreachableEndpoints(t *testing.T) {
 	}
 
 	// need to set client to fake GCP client
-	var clients gcp.GCPClient
-	clients = FakeGCPCli
-	cli.GcpClient = clients
+	cli.GcpClient.SetClient(FakeGCPCli)
 
 	err := cli.findUnreachableEndpoints("emhammon-test", "us-east-1", "fake instance", curl.Probe{})
 	if err != nil {
