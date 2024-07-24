@@ -35,26 +35,53 @@ WantedBy=multi-user.target
 EOF
 
 
+cat <<EOF > /etc/systemd/system/start-curl.service
+[Unit]
+Description=Service to print starting token
+[Service]
+Type=oneshot
+ExecStart=echo ${USERDATA_BEGIN}
+Restart=on-failure
+RemainAfterExit=true
+StandardOutput=file:/dev/ttyS0
+[Install]
+WantedBy=multi-user.target
+EOF
+
 cat <<EOF > /etc/systemd/system/curl.service
 [Unit]
 Description=Service to run curl
-
+After=start-curl.service
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/curl.sh
 Restart=on-failure
 RemainAfterExit=true
+StandardOutput=file:/dev/pts/0
+StandardError=file:/dev/ttyS0
 [Install]
 WantedBy=multi-user.target
 EOF
-
+cat <<EOF > /etc/systemd/system/end-curl.service
+[Unit]
+Description=Service to print starting token
+After=curl.service
+[Service]
+Type=oneshot
+ExecStart=echo ${USERDATA_END}
+Restart=on-failure
+RemainAfterExit=true
+StandardOutput=file:/dev/ttyS0
+[Install]
+WantedBy=multi-user.target
+EOF
 cat <<EOF > /etc/systemd/system/terminate.service
 [Unit]
 Description=Service to terminate instance
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/terminate.sh
-Restart=on-failure
+# Restart=on-failure
 EOF
 
 cat <<EOF > /etc/systemd/system/terminate.timer
@@ -70,5 +97,7 @@ EOF
 chmod 777 /usr/bin/curl.sh /usr/bin/terminate.sh
 systemctl daemon-reload
 systemctl start silence
+systemctl start start-curl
 systemctl start curl
+systemctl start end-curl
 systemctl start terminate.timer
